@@ -1,5 +1,5 @@
 defmodule Aoc do
-  @solutions %{2019 => [1, 2, 4]}
+  @solutions %{2020 => [1]}
 
   @solutions
   |> Enum.each(fn {year, days} ->
