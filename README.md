@@ -1,21 +1,32 @@
-# Aoc2019
+# Advent of Code
 
-**TODO: Add description**
+Project to simplify AoC challenges. Originally created by [@NobbZ](https://github.com/NobbZ) [aoc_ex](https://gitlab.com/NobbZ/aoc_ex)
 
-## Installation
+## Usage
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `aoc2019` to your list of dependencies in `mix.exs`:
+Copy/paste your daily input to `priv`. For example the challenge in year 2020 for day 1 goes to  `priv/y2020/d1.txt`.
+
+Add to `lib/aoc.ex` the year and day to the `@solutions` module attribute.
+
+Create the module for your day. For example year 2020 for day 1 means `lib/aoc/y2020/d1.ex`.
+
+Use this template:
 
 ```elixir
-def deps do
-  [
-    {:aoc2019, "~> 0.1.0"}
-  ]
+defmodule Aoc.Y2020.D1 do
+  use Aoc.Boilerplate,
+    transform: fn raw -> raw |> String.split() |> Enum.map(&String.to_integer(&1)) end
+
+  def part1(input \\ processed()) do
+  end
+
+  def part2(input \\ processed()) do
+  end
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/aoc2019](https://hexdocs.pm/aoc2019).
+In the example above look at the `transform` function, it parses each line to an integer. If you need to parse differently, change this function.
 
+Then solve your challenges. `part1/1` and `part2/1` functions should return the answer.
+
+Run `mix aoc` or `mix aoc --spoil`. Or also work in IEx.
