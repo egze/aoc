@@ -56,13 +56,13 @@ defmodule Aoc.Y2020.D3 do
 
   defp count_trees(moves, input) do
     moves
-    |> Enum.reduce({0, {0, 0}}, fn {move_right, move_down}, {trees, {current_x, current_y}} ->
-      x = current_x + move_down
-      y = Integer.mod(current_y + move_right, input.width)
+    |> Enum.reduce({0, {0, 0}}, fn {move_right, move_down}, {trees, {current_row, current_column}} ->
+      row = current_row + move_down
+      column = Integer.mod(current_column + move_right, input.width)
 
-      case Map.get(input.grid, {x, y}, ".") do
-        "." -> {trees, {x, y}}
-        "#" -> {trees + 1, {x, y}}
+      case Map.get(input.grid, {row, column}, ".") do
+        "." -> {trees, {row, column}}
+        "#" -> {trees + 1, {row, column}}
       end
     end)
     |> elem(0)
