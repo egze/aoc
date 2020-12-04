@@ -56,7 +56,8 @@ defmodule Aoc.Y2020.D3 do
 
   defp count_trees(moves, input) do
     moves
-    |> Enum.reduce({0, {0, 0}}, fn {move_right, move_down}, {trees, {current_row, current_column}} ->
+    |> Enum.reduce({0, {0, 0}}, fn {move_right, move_down},
+                                   {trees, {current_row, current_column}} ->
       row = current_row + move_down
       column = Integer.mod(current_column + move_right, input.width)
 
