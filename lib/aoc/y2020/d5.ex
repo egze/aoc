@@ -4,8 +4,7 @@ defmodule Aoc.Y2020.D5 do
 
   def part1(input \\ processed()) do
     input
-    |> Enum.map(&get_seat_id/1)
-    |> Enum.max()
+    |> Enum.reduce(0, &max_seat_id_reducer/2)
   end
 
   def part2(input \\ processed()) do
@@ -21,21 +20,12 @@ defmodule Aoc.Y2020.D5 do
     end)
   end
 
-  @doc """
-  Seat ID.
+  defp max_seat_id_reducer(seat, acc) do
+    seat_id = get_seat_id(seat)
 
-      iex> Aoc.Y2020.D5.get_seat_id("FBFBBFFRLR")
-      357
+    if seat_id >= acc, do: seat_id, else: acc
+  end
 
-      iex> Aoc.Y2020.D5.get_seat_id("BFFFBBFRRR")
-      567
-
-      iex> Aoc.Y2020.D5.get_seat_id("FFFBBBFRRR")
-      119
-
-      iex> Aoc.Y2020.D5.get_seat_id("BBFFBBFRLL")
-      820
-  """
   def get_seat_id(seat) do
     {row, col, _, _} =
       seat
