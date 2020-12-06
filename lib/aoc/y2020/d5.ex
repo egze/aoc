@@ -26,10 +26,25 @@ defmodule Aoc.Y2020.D5 do
     if seat_id >= acc, do: seat_id, else: acc
   end
 
+  @doc """
+  Seat ID.
+
+      iex> Aoc.Y2020.D5.get_seat_id("FBFBBFFRLR")
+      357
+
+      iex> Aoc.Y2020.D5.get_seat_id("BFFFBBFRRR")
+      567
+
+      iex> Aoc.Y2020.D5.get_seat_id("FFFBBBFRRR")
+      119
+
+      iex> Aoc.Y2020.D5.get_seat_id("BBFFBBFRLL")
+      820
+  """
   def get_seat_id(seat) do
     seat
     |> String.graphemes()
-    |> Enum.map(fn char -> if char in ["F", "R"], do: 1, else: 0 end)
+    |> Enum.map(fn char -> if char in ["B", "R"], do: 1, else: 0 end)
     |> Integer.undigits(2)
   end
 end
