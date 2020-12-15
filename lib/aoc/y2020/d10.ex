@@ -7,24 +7,30 @@ defmodule Aoc.Y2020.D10 do
     end
 
   def part1(input \\ processed()) do
-    {jolts, diffs} =
-      input
-      |> Enum.sort()
-      |> Enum.reduce({[], []}, fn jolt, acc ->
-        case acc do
-          {[], []} -> {[jolt], [jolt]}
-          {[prev_jolt | _rest] = jolts, diffs} -> {[jolt | jolts], [jolt - prev_jolt | diffs]}
-        end
-      end)
+    jolts_diffs = jolts_diffs(input)
 
     %{1 => one, 3 => three} =
-      [3 | diffs]
+      jolts_diffs
+      |> Enum.map(fn {_jolt, diff} -> diff end)
       |> Enum.frequencies()
 
-    one * three
+    one * (three + 1)
   end
 
   def part2(input \\ processed()) do
-    input
+    jolts_diffs = [{jolt, _diff} | _] = jolts_diffs(input)
+    jolts = jolts_diffs |> Enum.map(fn {jolt, _diff} -> jolt end)
+    device_joltage = jolt + 3
+  end
+
+  defp jolts_diffs(jolts) do
+    jolts
+    |> Enum.sort()
+    |> Enum.reduce([], fn jolt, acc ->
+      case acc do
+        [] -> [{jolt, jolt}]
+        [{prev_jolt, _diff} | _rest] -> [{jolt, jolt - prev_jolt} | acc]
+      end
+    end)
   end
 end
