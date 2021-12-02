@@ -18,9 +18,10 @@ defmodule Aoc.Y2021.D1 do
         case acc do
           {[i, j, k], statuses} ->
             {[depth, i, j], new_status(i + j + k, statuses)}
+
           {window, statuses} ->
             {[depth | window], statuses}
-         end 
+        end
       end)
 
     statuses = new_status(Enum.sum(rest), statuses)
