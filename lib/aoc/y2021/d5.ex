@@ -13,7 +13,6 @@ defmodule Aoc.Y2021.D5 do
       {:ok, [x1, y1, x2, y2], _, _, _, _} = VentParser.parse(line)
       [{{x1, y1}, {x2, y2}} | acc]
     end)
-    |> Enum.reverse()
     |> Enum.reduce(%{}, fn
       {{x, y1}, {x, y2}}, acc ->
         for y <- y1..y2, reduce: acc do
@@ -28,7 +27,7 @@ defmodule Aoc.Y2021.D5 do
       _, acc ->
         acc
     end)
-    |> Enum.count(&(elem(&1, 1) >= 2))
+    |> Enum.count(fn {_k, v} -> v > 1 end)
   end
 
   def part2(input \\ processed()) do
@@ -37,7 +36,6 @@ defmodule Aoc.Y2021.D5 do
       {:ok, [x1, y1, x2, y2], _, _, _, _} = VentParser.parse(line)
       [{{x1, y1}, {x2, y2}} | acc]
     end)
-    |> Enum.reverse()
     |> Enum.reduce(%{}, fn
       {{x, y1}, {x, y2}}, acc ->
         for y <- y1..y2, reduce: acc do
@@ -50,12 +48,11 @@ defmodule Aoc.Y2021.D5 do
         end
 
       {{x1, y1}, {x2, y2}}, acc ->
-        Enum.zip(x1..x2, y1..y2)
-        |> Enum.reduce(acc, fn {x, y}, acc ->
-          Map.update(acc, {x, y}, 1, &(&1 + 1))
-        end)
+        for {x, y} <- Enum.zip(x1..x2, y1..y2), reduce: acc do
+          acc -> Map.update(acc, {x, y}, 1, &(&1 + 1))
+        end
     end)
-    |> Enum.count(&(elem(&1, 1) >= 2))
+    |> Enum.count(fn {_k, v} -> v > 1 end)
   end
 
   defmodule VentParser do
