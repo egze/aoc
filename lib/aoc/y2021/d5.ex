@@ -49,13 +49,10 @@ defmodule Aoc.Y2021.D5 do
           acc -> Map.update(acc, {x, y}, 1, &(&1 + 1))
         end
 
-      {{x1, y1}, {x2, y2}}, acc when abs(x1 - x2) == abs(y1 - y2) ->
+      {{x1, y1}, {x2, y2}}, acc ->
         for x <- x1..x2, y <- y1..y2, abs(x - x1) == abs(y - y1), reduce: acc do
           acc -> Map.update(acc, {x, y}, 1, &(&1 + 1))
         end
-
-      _coords, acc ->
-        acc
     end)
     |> Enum.count(&(elem(&1, 1) >= 2))
   end
