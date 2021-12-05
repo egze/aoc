@@ -15,14 +15,14 @@ defmodule Aoc.Y2021.D5 do
     end)
     |> Enum.reverse()
     |> Enum.reduce(%{}, fn
-      {{x1, y1}, {x2, y2}}, acc when x1 == x2 ->
+      {{x, y1}, {x, y2}}, acc ->
         for y <- y1..y2, reduce: acc do
-          acc -> Map.update(acc, {x1, y}, 1, &(&1 + 1))
+          acc -> Map.update(acc, {x, y}, 1, &(&1 + 1))
         end
 
-      {{x1, y1}, {x2, y2}}, acc when y1 == y2 ->
+      {{x1, y}, {x2, y}}, acc ->
         for x <- x1..x2, reduce: acc do
-          acc -> Map.update(acc, {x, y1}, 1, &(&1 + 1))
+          acc -> Map.update(acc, {x, y}, 1, &(&1 + 1))
         end
 
       _, acc ->
@@ -39,14 +39,14 @@ defmodule Aoc.Y2021.D5 do
     end)
     |> Enum.reverse()
     |> Enum.reduce(%{}, fn
-      {{x1, y1}, {x2, y2}}, acc when x1 == x2 ->
+      {{x, y1}, {x, y2}}, acc ->
         for y <- y1..y2, reduce: acc do
-          acc -> Map.update(acc, {x1, y}, 1, &(&1 + 1))
+          acc -> Map.update(acc, {x, y}, 1, &(&1 + 1))
         end
 
-      {{x1, y1}, {x2, y2}}, acc when y1 == y2 ->
+      {{x1, y}, {x2, y}}, acc ->
         for x <- x1..x2, reduce: acc do
-          acc -> Map.update(acc, {x, y1}, 1, &(&1 + 1))
+          acc -> Map.update(acc, {x, y}, 1, &(&1 + 1))
         end
 
       {{x1, y1}, {x2, y2}}, acc when abs(x1 - x2) == abs(y1 - y2) ->
