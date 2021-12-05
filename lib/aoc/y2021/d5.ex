@@ -50,9 +50,10 @@ defmodule Aoc.Y2021.D5 do
         end
 
       {{x1, y1}, {x2, y2}}, acc ->
-        for x <- x1..x2, y <- y1..y2, abs(x - x1) == abs(y - y1), reduce: acc do
-          acc -> Map.update(acc, {x, y}, 1, &(&1 + 1))
-        end
+        Enum.zip(x1..x2, y1..y2)
+        |> Enum.reduce(acc, fn {x, y}, acc ->
+          Map.update(acc, {x, y}, 1, &(&1 + 1))
+        end)
     end)
     |> Enum.count(&(elem(&1, 1) >= 2))
   end
